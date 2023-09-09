@@ -1,0 +1,80 @@
+{% extends 'core/base.html' %}
+{% block content%}
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+    <h2 class="mb-12 text-2xl text-center">Newest items</h2>
+
+    <div class="grid grid-cols-3 gap-3 max-md:grid-cols-1">
+        {% for item in items %}
+        <div class="">
+            <a href="{% url 'item:detail' item.id %}">
+                <div class="">
+                    {% if item.image %}
+                    <img src="{{ item.image.url}}" alt="itemimage" class="rounded-t-xl">
+                    {% endif %}
+                </div>
+                <div class="p-6 bg-white rounded-b-xl">
+                    <h2 class="text-2xl ">{{ item.name }}</h2>
+                    <p class="text-gray-500">Price:{{ item.price }}</p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+
+
+        </div>
+
+    </div>
+    
+    <div class="w-full grid place-items-center my-6">
+
+        <nav aria-label="Page navigation example ">
+            <ul class="inline-flex -space-x-px text-sm">
+                {% if items.has_previous %}
+              <li>
+                <a href="?page={{ items.previous_page_number }}" class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+              </li>
+              <li>
+                <a href="?page=1" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+              </li>
+              {% endif %}
+              {% if items.has_next %}
+              <li>
+                <a href="?page={{ items.pagination.num_pages }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+              </li>
+              
+              <li>
+                <a href="?page={{ items.next_page_number }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+              </li>
+              {% endif %}
+            </ul>
+          </nav>
+
+</div>
+
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+    <h2 class="mb-12 text-2xl text-center max-md:hidden">Categories</h2>
+    <div class="grid grid-cols-3 gap-3 max-md:hidden">
+        {% for category in categories %}
+
+        <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}">
+          
+            <div class="p-6 bg-white rounded-b-xl">
+                <h2 class="text-2xl ">{{ category.name }}</h2>
+                <p class="text-gray-500">{{ category.items.count }} items</p>
+            </div>
+        </a>
+
+        {% endfor %}
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+  
+
+{% endblock %}
