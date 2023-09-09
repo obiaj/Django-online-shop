@@ -15,16 +15,8 @@
 
 - Django
 
+- Pillow
+
 - Tailwind
 
 
-<h3>Installation</h3>
-
-1. Clone the repository:
-
-
-```console
-git clone https://github.com/your-username/online-shop.git
-cd online-shop
-
-```
